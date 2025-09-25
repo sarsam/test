@@ -46,12 +46,13 @@ class Handler
         }
 
         $date = new DateTimeImmutable();
-
+        $id = Id::generate();
+        $password = $command->password;
         $user = User::requestJoinByEmail(
-            Id::generate(),
+            $id,
             $date,
             $email,
-            $this->hasher->hash($command->password),
+            $this->hasher->hash($password),
             $token = $this->tokenizer->generate($date)
         );
 
